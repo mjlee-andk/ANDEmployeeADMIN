@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AND ADMIN</title>
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 11]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="assets/css/plugins/dataTables.bootstrap4.min.css">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Datepicker css ver 1.9-->
+    <link href="assets/css/plugins/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <style>
+        .menu-styler {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    <!-- [ navigation menu ] start -->
+    <nav class="pcoded-navbar menupos-fixed ">
+        <div class="navbar-wrapper  ">
+            <div class="navbar-content scroll-div " >
+                <ul class="nav pcoded-inner-navbar ">
+                    <li class="nav-item pcoded-hasmenu">
+                        <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">관리목록</span></a>
+                        <ul class="pcoded-submenu">
+                            <li><a href="/">직원관리</a></li>
+                            <li><a href="/">게시글관리</a></li>
+                            <li><a href="/">부서관리</a></li>
+                            <li><a href="/">푸시알림관리</a></li>
+                            <li><a href="/">계정관리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+    <!-- [ Header ] start -->
+    <header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed">
+        <div class="m-header">
+            <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+            <a href="/" class="b-brand">
+                <!-- ========   change your logo hear   ============ -->
+                <!-- ========   change your logo hear   ============ -->
+                <img src="assets/images/logo.png" alt="" class="logo" style="width:100px;">
+            </a>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">직원관리</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">직원관리</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- customar project  start -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center m-l-0">
+
+                                <div class="col-sm-6 offset-sm-6 text-right">
+                                    <button class="btn btn-success btn-sm  mb-3 btn-round" onclick="location.href='/employeeadd'"><i class="feather icon-plus"></i>직원 등록</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="report-table" class="table table-bordered table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>프로필</th>
+                                            <th>이름</th>
+                                            <th>소속</th>
+                                            <th>부서</th>
+                                            <th>직급</th>
+                                            <th>옵션</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(var i = 0; i < data.length; i++){ %>
+                                         <tr>
+                                            <td>
+                                                <img src="<%= data[i].profile_img %>" class="img-fluid img-radius wid-40" alt="">
+                                            </td>
+                                            <td><%= data[i].name %></td>
+                                            <td><%= data[i].division_name %></td>
+                                            <td><%= data[i].department_name %></td>
+                                            <td><%= data[i].position_name %></td>
+                                            <td>
+                                                <a href="/employeeedit?id=<%= data[i].id %>" class="btn btn-info btn-sm" ><i class="feather icon-edit"></i>&nbsp;Edit </a>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- customar project  end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <!-- Required Js -->
+    <script src="assets/js/vendor-all.min.js"></script>
+    <script src="assets/js/plugins/bootstrap.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/menu-setting.min.js"></script>
+
+    <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+    <!-- Apex Chart -->
+    <script src="assets/js/plugins/apexcharts.min.js"></script>
+    <script>
+        // DataTable start
+        $('#report-table').DataTable();
+        // DataTable end
+    </script>
+
+    <!-- Datepicker Js -->
+    <script src="assets/js/plugins/moment.min.js"></script>
+    <script src="assets/js/plugins/daterangepicker.js"></script>
+
+    <!--Single Date Picker-->
+    <script>
+        $(window).ready(function() {
+            $(function() {
+                $('input[name="birthday"]').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    maxYear: parseInt(moment().format('YYYY'), 10)
+                }, function(start, end, label) {
+                    var years = moment().diff(start, 'years');
+                    alert("You are " + years + " years old!");
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
