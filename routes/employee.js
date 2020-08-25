@@ -10,11 +10,11 @@ const moment = require('moment');
 const SERVER = 'http://121.126.225.132:3001'
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-	user: 'root',
-	port: 3307,
-	password: 'polygon',
-	database: 'andkorea'
+    host: 'localhost',
+    user: 'root',
+    port: 3307,
+    password: 'polygon',
+    database: 'andkorea'
 });
 
 connection.connect();
@@ -32,8 +32,8 @@ var storage = multer.diskStorage({
     cb(null, file.originalname) // 파일 이름 설정
   }
 })
-var upload = multer({ storage: storage})
 
+var upload = multer({ storage: storage})
 
 /*
   직원 관리 페이지
@@ -83,19 +83,10 @@ router.post('/employeeedit', upload.single('employee_profile'), function(req, re
 module.exports = router;
 
 var employeesAPI = function(req, res) {
-	var division_id = '58053d75-c1fe-11ea-9982-20cf305809b8';	// ADK
-	// var division_id = '580cf650-c1fe-11ea-9982-20cf305809b8'; // ADKS
-	var department_id = '';
-
-  // var query = 'SELECT e.id, e.name, e.gender, e.profile_img, e.extension_number, e.phone, e.birth, e.join_date, e.leave_date, dv.name AS division_name, dp.name AS department_name, p.name AS position_name FROM employees AS e LEFT JOIN divisions AS dv ON e.division_id = dv.id LEFT JOIN departments AS dp ON e.department_id = dp.id LEFT JOIN positions AS p ON e.position_id = p.id WHERE '
   var query = 'SELECT e.id, e.name, e.gender, e.profile_img, e.extension_number, e.phone, e.birth, e.join_date, e.leave_date, dv.name AS division_name, dp.name AS department_name, p.name AS position_name FROM employees AS e LEFT JOIN divisions AS dv ON e.division_id = dv.id LEFT JOIN departments AS dp ON e.department_id = dp.id LEFT JOIN positions AS p ON e.position_id = p.id';
-  var queryWhere = '';
-  // queryWhere = queryWhere + 'e.division_id LIKE "%' + division_id + '%" AND ';
-  // queryWhere = queryWhere + 'e.department_id LIKE "%' + department_id + '%"';
-
   var queryOrder = ' ORDER BY dv.name ASC, e.name ASC, p.priority ASC';
 
-  connection.query(query + queryWhere + queryOrder, (error, rows, fields) => {
+  connection.query(query + queryOrder, (error, rows, fields) => {
     var resultCode = 404;
     var message = "에러가 발생했습니다.";
 
@@ -110,7 +101,7 @@ var employeesAPI = function(req, res) {
         'code': resultCode,
         'message': message,
         'data': rows
-      })
+    })
   });
 }
 

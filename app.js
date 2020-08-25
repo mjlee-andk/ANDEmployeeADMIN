@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var employeeRouter = require('./routes/employee');
+var boardRouter = require('./routes/board');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -20,10 +21,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', employeeRouter);
+app.use('/board', boardRouter);
 app.use('/users', usersRouter);
 
 // 사진 저장 경로
 app.use('/and_employees_profile', express.static('uploads'));
+app.use('/boards', express.static('uploads_board'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -155,3 +155,41 @@ var employee_edit_submit = function() {
         employee_edit_form.submit();
     }
 }
+
+/*
+    게시글 Form에 입력값 빠진 것 있는지 체크
+*/
+var validateBoardInfo = function() {
+    // if($('input[name="board_title"]').val() == '') {
+    //     alert('제목을 입력해주세요.')
+    //     return false;
+    // }
+    // if($('input[name="board_title"]').val() == '') {
+    //     alert('제목을 입력해주세요.')
+    //     return false;
+    // }
+    return true;
+}
+
+/*
+    게시글 등록 버튼
+*/
+var board_add_submit = function() {
+    var board_add_form = document.getElementById("board_add_form");
+
+    if(validateBoardInfo()) {
+        board_add_form.submit();
+    }
+}
+
+/*
+    게시글 수정 버튼
+*/
+var board_edit_submit = function() {
+    var board_edit_form = document.getElementById("board_edit_form");
+
+    if(validateBoardInfo()) {
+        board_edit_form.submit();
+    }
+}
+
