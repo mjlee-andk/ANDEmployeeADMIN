@@ -159,15 +159,19 @@ var employee_edit_submit = function() {
 /*
     게시글 Form에 입력값 빠진 것 있는지 체크
 */
-var validateBoardInfo = function() {
-    // if($('input[name="board_title"]').val() == '') {
-    //     alert('제목을 입력해주세요.')
-    //     return false;
-    // }
-    // if($('input[name="board_title"]').val() == '') {
-    //     alert('제목을 입력해주세요.')
-    //     return false;
-    // }
+var validateBoardInfo = function() {  
+    if($('#board_category_select').val() == '') {
+        alert('카테고리를 선택해주세요.')
+        return false;
+    }
+    if($('input[name="board_title"]').val() == '') {
+        alert('제목을 입력해주세요.')
+        return false;
+    }
+    if($('#board_contents_textarea').val() == '') {
+        alert('내용을 입력해주세요.')
+        return false;
+    }
     return true;
 }
 
@@ -204,4 +208,30 @@ var board_alert_delete = function(board_id) {
   else {
     return;
   }
+}
+
+/*
+    부서 Form에 입력값 빠진 것 있는지 체크
+*/
+var validateDepartmentInfo = function() {  
+    if($('#department_division_select').val() == '') {
+        alert('소속을 선택해주세요.')
+        return false;
+    }
+    if($('input[name="department_name"]').val() == '') {
+        alert('부서명을 입력해주세요.')
+        return false;
+    }
+    return true;
+}
+
+/*
+    부서 등록 버튼
+*/
+var department_add_submit = function() {
+    var department_add_form = document.getElementById("department_add_form");
+
+    if(validateDepartmentInfo()) {
+        department_add_form.submit();
+    }
 }

@@ -77,17 +77,17 @@
         <div class="pcoded-content">
             <div class="card">
                 <div class="card-header">
-                    <h5>게시글 등록</h5> 
+                    <h5>부서 등록</h5> 
                 </div>
                 <div class="card-body">
-                    <form id="board_add_form" action="/board/add" method="post" enctype="multipart/form-data">
+                    <form id="department_add_form" action="/department/add" method="post">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">카테고리</label>
-                                    <select id="board_category_select" class="form-control" name="board_category">
-                                        <% for(var i = 0; i < categories.length; i++) { %>
-                                        <option value="<%= categories[i].id %>"><%= categories[i].name %></option>
+                                    <label class="form-label">소속</label>
+                                    <select id="department_division_select" class="form-control" name="department_division">
+                                        <% for(var i = 0; i < divisions.length; i++) { %>
+                                        <option value="<%= divisions[i].id %>"><%= divisions[i].name %></option>
                                         <% } %>
                                     </select>
                                 </div>
@@ -95,30 +95,18 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">제목</label>
-                                    <input type="text" class="form-control" name="board_title" placeholder="ex)게시글 작성 관련 건">
+                                    <label class="form-label">부서명</label>
+                                    <input type="text" class="form-control" name="department_name" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">내용</label>
-                                    <textarea id="board_contents_textarea" class="form-control" name="board_contents" rows="10"></textarea>
+                                    <label class="form-label">전화번호</label>
+                                    <input type="text" class="form-control" name="department_telephone" placeholder="없으면 입력 X">
                                 </div>
                             </div>
-                            <!--추후 앱에서 사진 첨부 기능 추가되면 추가-->
-                            <!-- <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">사진 첨부</label>
-                                    <div>
-                                        <input type="file" class="validation-file" name="board_img" accept="image/*" onchange="setPreview(event)">
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="image_container" class="col-md-12">
-                                <img id="profile_preview" style="display: none">
-                            </div> -->
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="board_add_submit()">등록</button>
+                        <button type="button" class="btn btn-primary" onclick="department_add_submit()">등록</button>
                     </form>
                 </div>
             </div>

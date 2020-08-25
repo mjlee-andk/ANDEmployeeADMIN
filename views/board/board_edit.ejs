@@ -50,7 +50,7 @@
                         <ul class="pcoded-submenu">
                             <li><a href="/">직원관리</a></li>
                             <li><a href="/board">게시글관리</a></li>
-                            <li><a href="/">부서관리</a></li>
+                            <li><a href="/department">부서관리</a></li>
                             <li><a href="/">푸시알림관리</a></li>
                             <li><a href="/">계정관리</a></li>
                         </ul>
@@ -103,7 +103,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">내용</label>
-                                    <textarea class="form-control" name="board_contents" rows="10"><%= board.contents %></textarea>
+                                    <textarea id="board_contents_textarea" class="form-control" name="board_contents" rows="10"><%= board.contents %></textarea>
                                 </div>
                             </div>
                             <!--추후 앱에서 사진 첨부 기능 추가되면 추가-->

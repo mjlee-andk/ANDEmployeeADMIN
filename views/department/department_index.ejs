@@ -79,11 +79,11 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">직원관리</h5>
+                                <h5 class="m-b-10">부서관리</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">직원관리</a></li>
+                                <li class="breadcrumb-item"><a href="">부서관리</a></li>
                             </ul>
                         </div>
                     </div>
@@ -98,33 +98,30 @@
                         <div class="card-body">
                             <div class="row align-items-center m-l-0">
                                 <div class="col-sm-6 offset-sm-6 text-right">
-                                    <button class="btn btn-success btn-sm  mb-3 btn-round" onclick="location.href='/employeeadd'"><i class="feather icon-plus"></i>직원 등록</button>
+                                    <button class="btn btn-success btn-sm  mb-3 btn-round" onclick="location.href='/department/add'"><i class="feather icon-plus"></i>부서 등록</button>
                                 </div>
                             </div>
                             <div class="table-responsive">
                                 <table id="report-table" class="table table-bordered table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>프로필</th>
-                                            <th>이름</th>
+                                            <th>번호</th>
                                             <th>소속</th>
-                                            <th>부서</th>
-                                            <th>직급</th>
+                                            <th>부서명</th>
+                                            <th>전화번호</th>
                                             <th>옵션</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% for(var i = 0; i < data.length; i++){ %>
                                          <tr>
-                                            <td>
-                                                <img src="<%= data[i].profile_img %>" class="img-fluid img-radius wid-40" alt="">
-                                            </td>
-                                            <td><%= data[i].name %></td>
+                                            <td><%= data[i].order_seq %></td>
                                             <td><%= data[i].division_name %></td>
                                             <td><%= data[i].department_name %></td>
-                                            <td><%= data[i].position_name %></td>
+                                            <td><%= data[i].telephone %></td>
                                             <td>
-                                                <a href="/employeeedit?id=<%= data[i].id %>" class="btn btn-info btn-sm" ><i class="feather icon-edit"></i>&nbsp;수정</a>
+                                                <a href="/department/edit?id=<%= data[i].id %>" class="btn btn-info btn-sm" ><i class="feather icon-edit"></i>&nbsp;수정 </a>
+                                                <!-- <a href="" onclick="board_alert_delete('<%= data[i].id %>');" class="btn btn-danger btn-sm" ><i class="feather icon-trash-2"></i>&nbsp;삭제 </a> -->
                                             </td>
                                         </tr>
                                         <% } %>
@@ -142,6 +139,8 @@
     <!-- [ Main Content ] end -->
 
     <!-- Required Js -->
+    <script src="../javascripts/admin.js"></script>
+
     <script src="assets/js/vendor-all.min.js"></script>
     <script src="assets/js/plugins/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.min.js"></script>

@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var employeeRouter = require('./routes/employee');
 var boardRouter = require('./routes/board');
+var departmentRouter = require('./routes/department');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -22,10 +23,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', employeeRouter);
 app.use('/board', boardRouter);
+app.use('/department', departmentRouter);
 app.use('/users', usersRouter);
 
-// 사진 저장 경로
+// 프로필 사진 저장 경로
 app.use('/and_employees_profile', express.static('uploads'));
+// 게시글 사진 저장 경로
 app.use('/boards', express.static('uploads_board'));
 
 // catch 404 and forward to error handler
