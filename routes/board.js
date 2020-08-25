@@ -83,6 +83,15 @@ router.post('/edit', upload.single('board_img'), function(req, res, next) {
   boardEditAPI(req, res);
 });
 
+/*
+  게시글 삭제
+*/
+router.get('/delete', function(req, res, next) {
+  console.log('게시글 삭제하기')
+  console.log(req.body);
+  boardDeleteAPI(req, res);
+});
+
 
 module.exports = router;
 
@@ -304,38 +313,24 @@ var boardEditAPI = function(req, res){
 		if (error) {
 			throw error;
 		}
-		else {
-			resultCode = 200;
-			message = "성공";
-		}
-	});
-
-	res.redirect('/board');
+		res.redirect('/board');
+	});	
 }
 
 var boardDeleteAPI = function(req, res) {
-  const board_id = req.body.board_id;
+	const board_id = req.query.id;
 
-  var post = {
-    deletedat : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-  }
+	var post = {
+		deletedat : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+	}
 
-  connection.query('UPDATE boards SET ? WHERE id = "' + board_id + '"', post, (error, rows, fields) => {
-    var resultCode = 404;
-    var message = "에러가 발생했습니다.";
+	connection.query('UPDATE boards SET ? WHERE id = "' + board_id + '"', post, (error, rows, fields) => {
+		var resultCode = 404;
+		var message = "에러가 발생했습니다.";
 
-    if (error) 
-      throw error;
-    else {
-      resultCode = 200;
-      message = "성공"
+		if (error) 
+			throw error;
 
-      res.status(200).json(
-        {
-          'code': resultCode,
-          'message': message
-        }
-      );
-    }
-  });
+		res.redirect('/board');
+	});
 }

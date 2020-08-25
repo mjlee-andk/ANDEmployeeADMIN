@@ -193,3 +193,15 @@ var board_edit_submit = function() {
     }
 }
 
+/*
+    게시글 삭제 버튼
+*/
+var board_alert_delete = function(board_id) {
+  if(confirm('게시글을 삭제하시겠습니까?')) {
+    window.location.href = '/board/delete?id=' + board_id;
+    return;
+  }
+  else {
+    return;
+  }
+}
