@@ -235,3 +235,15 @@ var department_add_submit = function() {
         department_add_form.submit();
     }
 }
+
+/*
+    부서 수정 버튼
+*/
+var department_edit_submit = function() {
+    var department_edit_form = document.getElementById("department_edit_form");
+
+    if(validateDepartmentInfo()) {
+        department_edit_form.submit();
+    }
+}
+

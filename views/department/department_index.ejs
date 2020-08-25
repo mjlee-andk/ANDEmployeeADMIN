@@ -105,20 +105,20 @@
                                 <table id="report-table" class="table table-bordered table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>번호</th>
                                             <th>소속</th>
                                             <th>부서명</th>
                                             <th>전화번호</th>
+                                            <th>순서</th>
                                             <th>옵션</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% for(var i = 0; i < data.length; i++){ %>
                                          <tr>
-                                            <td><%= data[i].order_seq %></td>
                                             <td><%= data[i].division_name %></td>
                                             <td><%= data[i].department_name %></td>
                                             <td><%= data[i].telephone %></td>
+                                            <td><%= data[i].order_seq %></td>
                                             <td>
                                                 <a href="/department/edit?id=<%= data[i].id %>" class="btn btn-info btn-sm" ><i class="feather icon-edit"></i>&nbsp;수정 </a>
                                                 <!-- <a href="" onclick="board_alert_delete('<%= data[i].id %>');" class="btn btn-danger btn-sm" ><i class="feather icon-trash-2"></i>&nbsp;삭제 </a> -->

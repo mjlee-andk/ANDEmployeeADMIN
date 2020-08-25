@@ -37,11 +37,26 @@ router.get('/add', function(req, res, next) {
 
 /*
   부서 등록
-  upload.single() 부분이 파일 있을 경우 서버에 업로드 해주는 부분
 */
 router.post('/add', function(req, res, next) {
   console.log('부서 등록하기');
   departmentAddAPI(req, res);
+});
+
+/*
+  부서 수정 페이지
+*/
+router.get('/edit', function(req, res, next) {
+  console.log('부서 수정 페이지');
+  departmentAPI(req, res);
+});
+
+/*
+  부서 수정
+*/
+router.post('/edit', function(req, res, next) {
+  console.log('부서 수정하기');
+  departmentEditAPI(req, res);
 });
 
 
@@ -66,6 +81,52 @@ var departmentsAPI = function(req, res) {
         'data': rows
     })
   });
+}
+
+var departmentAPI = function(req, res) {
+
+	const promise1 = new Promise(function(resolve, reject){
+		var department_id = req.query.id;
+		var query = 'SELECT d.id, d.name AS department_name, d.telephone, d.order_seq, d.division_id, dv.name AS division_name FROM departments AS d LEFT JOIN divisions AS dv ON d.division_id = dv.id';
+	  	var queryWhere = ' WHERE d.id = "' + department_id + '"';
+
+		connection.query(query + queryWhere, (error, rows, fields) => {
+			var resultCode = 404;
+			var message = "에러가 발생했습니다.";
+
+			if (error){
+				reject();
+				throw error;
+			}
+			resolve(rows[0]);
+		});
+	});
+	// 'SELECT MAX(d.order_seq) FROM departments AS d WHERE division_id = "' + body.department_division + '"'
+	const promise2 = new Promise(function(resolve, reject){
+		var query = 'SELECT dv.id, dv.name FROM divisions AS dv ORDER BY name ASC';
+
+		connection.query(query, (error, rows, fields) => {
+			var resultCode = 404;
+			var message = "에러가 발생했습니다.";
+
+			if (error){
+				reject();
+			  	throw error;
+			}
+
+			resolve(rows);
+		});
+	});
+
+	Promise.all([promise1, promise2]).then(function (values) {
+		var department = values[0];
+		var divisions = values[1];
+
+		res.render('../views/department/department_edit.ejs', {
+			'department' : department,
+			'divisions' : divisions
+		})
+	});
 }
 
 var divisionsAPI = function(req, res) {
@@ -114,5 +175,26 @@ var departmentAddAPI = function(req, res){
 			}
 			res.redirect('/department');
 		});
-	});  
+	});
+}
+
+var departmentEditAPI = function(req, res){
+	var body = req.body;
+
+	var department_post = {
+		division_id : body.department_division,
+		name : body.department_name,
+		telephone : body.department_telephone,
+		order_seq : body.department_orderseq
+	}
+
+	connection.query('UPDATE departments SET ? WHERE id = "' + body.department_id + '"', department_post, (error, rows, fields) => {
+		var resultCode = 404;
+		var message = "에러가 발생했습니다.";
+
+		if (error) {
+			throw error;
+		}
+		res.redirect('/department');
+	});	
 }

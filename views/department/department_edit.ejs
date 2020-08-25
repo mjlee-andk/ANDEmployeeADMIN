@@ -77,10 +77,11 @@
         <div class="pcoded-content">
             <div class="card">
                 <div class="card-header">
-                    <h5>부서 등록</h5> 
+                    <h5>부서 수정</h5> 
                 </div>
                 <div class="card-body">
-                    <form id="department_add_form" action="/department/add" method="post">
+                    <form id="department_edit_form" action="/department/edit" method="post">
+                    	<input type="hidden" name="department_id" value="<%= department.id %>">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -96,17 +97,23 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">부서명</label>
-                                    <input type="text" class="form-control" name="department_name" placeholder="">
+                                    <input type="text" class="form-control" name="department_name" placeholder="" value="<%= department.department_name %>">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">전화번호</label>
-                                    <input type="text" class="form-control" name="department_telephone" placeholder="없으면 입력 X">
+                                    <input type="text" class="form-control" name="department_telephone" placeholder="없으면 입력 X" value="<%= department.telephone %>">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">순서</label>
+                                    <input type="text" class="form-control" name="department_orderseq" placeholder="" value="<%= department.order_seq %>">
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="department_add_submit()">등록</button>
+                        <button type="button" class="btn btn-primary" onclick="department_edit_submit()">수정</button>
                     </form>
                 </div>
             </div>
@@ -127,6 +134,12 @@
     <script src="../assets/js/plugins/dataTables.bootstrap4.min.js"></script>
     <!-- Apex Chart -->
     <script src="../assets/js/plugins/apexcharts.min.js"></script>
+
+    <script>
+    	window.onload = function(){
+            $('#department_division_select').val('<%= department.division_id %>').prop('selected', true);
+        }
+    </script>
 
 </body>
 
