@@ -3,6 +3,9 @@ const ID_ADK = '58053d75-c1fe-11ea-9982-20cf305809b8';
 var adk_departments = [];
 var adks_departments = [];
 
+/*
+    ADK 부서 목록 가져오기
+*/
 var getAdkDepartments = function(name, id) {
 	adk_departments.push({
 		'name': name,
@@ -10,6 +13,10 @@ var getAdkDepartments = function(name, id) {
 	})
 }
 
+
+/*
+    ADKS 부서 목록 가져오기
+*/
 var getAdksDepartments = function(name, id) {
 	adks_departments.push({
 		'name': name,
@@ -17,6 +24,9 @@ var getAdksDepartments = function(name, id) {
 	})
 }
 
+/*
+    소속 선택지 변경되면 부서 선택지 변경
+*/
 var setDepartments = function() {
 	var division_selected_id = document.getElementById("employee_division_select").value;
     var departments_select = document.getElementById("employee_department_select");
@@ -50,18 +60,24 @@ var setDepartments = function() {
     }
 }
 
+/*
+    프로필 사진 업로드시 미리보기 설정
+*/
 var setPreview = function(event){
   var reader = new FileReader();
 
   reader.onload = function(event){
-    var img = document.createElement("img");
-    img.setAttribute("src", event.target.result);
-    document.querySelector("div#image_container").appendChild(img);
+    var img = $('#profile_preview');
+    img.css('display', 'block');
+    img.attr('src', event.target.result);
   };
 
   reader.readAsDataURL(event.target.files[0]);
 }
 
+/*
+    form에 입력값 빠진 것 있는지 체크
+*/
 var validateEmployeeInfo = function() {
 
   if($('input[name="employee_name"]').val() == '') {
@@ -117,10 +133,25 @@ var validateEmployeeInfo = function() {
   return true;
 }
 
+
+/*
+    직원 등록 버튼
+*/
 var employee_add_submit = function() {
     var employee_add_form = document.getElementById("employee_add_form");
 
     if(validateEmployeeInfo()) {
         employee_add_form.submit();
+    }
+}
+
+/*
+    직원 정보 수정 버튼
+*/
+var employee_edit_submit = function() {
+    var employee_edit_form = document.getElementById("employee_edit_form");
+
+    if(validateEmployeeInfo()) {
+        employee_edit_form.submit();
     }
 }

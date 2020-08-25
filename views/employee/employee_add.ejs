@@ -166,6 +166,7 @@
                                 </div>
                             </div>
                             <div id="image_container" class="col-md-12">
+                                <img id="profile_preview" style="display: none">
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary" onclick="employee_add_submit()">등록</button>
@@ -189,11 +190,6 @@
     <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
     <!-- Apex Chart -->
     <script src="assets/js/plugins/apexcharts.min.js"></script>
-    <script>
-        // DataTable start
-        $('#report-table').DataTable();
-        // DataTable end
-    </script>
 
 
     <!-- Datepicker Js -->
@@ -208,7 +204,6 @@
                     singleDatePicker: true,
                     showDropdowns: true,
                     minYear: 1901,
-                    maxYear: parseInt(moment().format('YYYY'), 10),
                     locale: {
                         format: 'YYYY-MM-DD'
                     }
@@ -220,7 +215,6 @@
                     singleDatePicker: true,
                     showDropdowns: true,
                     minYear: 1901,
-                    maxYear: parseInt(moment().format('YYYY'), 10),
                     locale: {
                         format: 'YYYY-MM-DD'
                     }
