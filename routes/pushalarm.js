@@ -6,6 +6,7 @@ const mysql = require('mysql');
 const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
+const fcm = require('../fcm/fcm');
 
 const SERVER = 'http://121.126.225.132:3001'
 
@@ -19,15 +20,11 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-var FCM = require('fcm-node');
-var serverKey = require('../config/and-employees-private-key.json');
-var fcm = new FCM(serverKey);
-
 /*
   푸시알람 페이지
 */
 router.get('/', function(req, res, next) {
-  console.log('푸시알람 페이지');
+  	console.log('푸시알람 페이지');
 	res.render('../views/pushalarm/pushalarm_index.ejs', {
 		
 	})
@@ -76,7 +73,7 @@ var pushAlarmAPI = function(req, res) {
 			    }
 			}
 
-			fcm.send(fcmMessage, function(err, response){
+			fcm.fcmObj.send(fcmMessage, function(err, response){
 				var resultCode = 404;
 			    var message = "에러가 발생했습니다.";
 

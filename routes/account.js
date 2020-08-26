@@ -7,7 +7,7 @@ const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
 
-const SERVER = 'http://121.126.225.132:3001'
+const SERVER = 'http://121.126.225.132:3001';
 
 const connection = mysql.createConnection({
     host: 'localhost',

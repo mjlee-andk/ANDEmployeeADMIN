@@ -6,6 +6,7 @@ const mysql = require('mysql');
 const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
+const fcm = require('../fcm/fcm');
 
 const SERVER = 'http://121.126.225.132:3001';
 const ADMIN_ID = '9373d9f6-e6ca-11ea-9982-20cf305809b8';
@@ -36,7 +37,7 @@ var storage = multer.diskStorage({
   }
 })
 
-var upload = multer({ storage: storage})
+var upload = multer({storage: storage})
 
 /*
   게시글 관리 페이지
@@ -249,43 +250,62 @@ var boardAddAPI = function(req, res){
 		if (error) {
 		  throw error;
 		}
-		// // 공지사항 또는 경조사일 경우 전 직원에게 푸시알람 보내기
-		// // is_valid = 1
-		// // is_push = 1
-		// // device_token IS NOT NULL
-		// if(category_id == GONGJI_ID || category_id == GYEONGJOSA_ID) {
+		// 공지사항 또는 경조사일 경우 전 직원에게 푸시알람 보내기
+		// is_valid = 1
+		// is_push = 1
+		// device_token IS NOT NULL
+		if(board_post.category_id == GONGJI_ID || board_post.category_id == GYEONGJOSA_ID) {
 
-		//   connection.query('SELECT device_token FROM users WHERE is_valid = 1 AND is_push = 1 AND device_token IS NOT NULL' , (error2, rows2, fields2) => {
-		//     var resultCode = 404;
-		//     var message = "에러가 발생했습니다.";
+			connection.query('SELECT device_token FROM users WHERE is_valid = 1 AND is_push = 1 AND device_token IS NOT NULL' , (error2, rows2, fields2) => {
+				var resultCode = 404;
+				var message = "에러가 발생했습니다.";
 
-		//     if (error) 
-		//       throw error;
-		//     else {
-		//       resultCode = 200;
-		//       message = "성공";
+				if (error) 
+				  	throw error;
+				else {
+					resultCode = 200;
+					message = "성공";
 
-		//       console.log(rows2);
+					console.log(rows2);
 
-		//       var tokenList = [];
-		//       for(var i in rows2) {
-		//       	var item = rows2[i];
-		//       	tokenList.push(item.device_token);
-		//       }
+					var tokenList = [];
+					for(var i in rows2) {
+						var item = rows2[i];
+						tokenList.push(item.device_token);
+					}
 
-		//       console.log("token list", tokenList);
-		//       var fcm_title = '';
-		//       if(category_id == GONGJI_ID) {
-		//       	fcm_title = '공지사항';
-		//       }
-		//       if(category_id == GYEONGJOSA_ID) {
-		//       	fcm_title = '경조사';	
-		//       }
+					console.log("token list", tokenList);
+					var fcm_title = '';
+					if(board_post.category_id == GONGJI_ID) {
+						fcm_title = '공지사항';
+					}
+					if(board_post.category_id == GYEONGJOSA_ID) {
+						fcm_title = '경조사';	
+					}
 
-		//       fcmController.fcmMultiSend(tokenList, fcm_title, title);
-		//     }
-		//   });
-		// }
+					var fcmMessage = { 
+					    registration_ids: tokenList,
+					    notification: {
+					        title: fcm_title, 
+					        body: board_post.title 
+					    }
+					}
+
+					fcm.fcmObj.send(fcmMessage, function(err, response){
+						var resultCode = 404;
+						var message = "에러가 발생했습니다.";
+
+						if (err) {
+							console.log("Something has gone wrong!")
+						} else {
+							console.log("Successfully sent with response: ", response)
+							resultCode = 200;
+							message = "성공";
+						}
+					})	
+				}
+			});
+		}
 		res.redirect('/board')
 	});
 }
