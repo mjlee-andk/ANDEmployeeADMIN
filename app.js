@@ -7,7 +7,8 @@ var logger = require('morgan');
 var employeeRouter = require('./routes/employee');
 var boardRouter = require('./routes/board');
 var departmentRouter = require('./routes/department');
-var usersRouter = require('./routes/users');
+var pushalarmRouter = require('./routes/pushalarm');
+var accountRouter = require('./routes/account');
 
 var app = express();
 
@@ -24,7 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', employeeRouter);
 app.use('/board', boardRouter);
 app.use('/department', departmentRouter);
-app.use('/users', usersRouter);
+app.use('/pushalarm', pushalarmRouter);
+app.use('/account', accountRouter);
 
 // 프로필 사진 저장 경로
 app.use('/and_employees_profile', express.static('uploads'));

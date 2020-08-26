@@ -49,8 +49,8 @@
                             <li><a href="/">직원관리</a></li>
                             <li><a href="/board">게시글관리</a></li>
                             <li><a href="/department">부서관리</a></li>
-                            <li><a href="/">푸시알림관리</a></li>
-                            <li><a href="/">계정관리</a></li>
+                            <li><a href="/pushalarm">푸시알림관리</a></li>
+                            <li><a href="/account">계정관리</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -123,7 +123,7 @@
                                             <td><%= data[i].createdat %></td>
                                             <td>
                                                 <a href="/board/edit?id=<%= data[i].id %>" class="btn btn-info btn-sm" ><i class="feather icon-edit"></i>&nbsp;수정 </a>
-                                                <a href="" onclick="board_alert_delete('<%= data[i].id %>');" class="btn btn-danger btn-sm" ><i class="feather icon-trash-2"></i>&nbsp;삭제 </a>
+                                                <a href="#" onclick="board_alert_delete('<%= data[i].id %>');" class="btn btn-danger btn-sm" ><i class="feather icon-trash-2"></i>&nbsp;삭제 </a>
                                             </td>
                                         </tr>
                                         <% } %>
@@ -152,6 +152,11 @@
     <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
     <!-- Apex Chart -->
     <script src="assets/js/plugins/apexcharts.min.js"></script>
+    <script>        
+        // DataTable start
+        $('#report-table').DataTable();
+        // DataTable end
+    </script>
 </body>
 
 </html>

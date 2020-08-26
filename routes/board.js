@@ -69,7 +69,7 @@ router.post('/add', upload.single('board_img'), function(req, res, next) {
   게시글 수정 페이지
 */
 router.get('/edit', function(req, res, next) {
-  console.log('게시글 수정 페이지')
+  console.log('게시글 수정 페이지');
   boardAPI(req, res);
   
 });
@@ -78,7 +78,7 @@ router.get('/edit', function(req, res, next) {
   게시글 정보 수정
 */
 router.post('/edit', upload.single('board_img'), function(req, res, next) {
-  console.log('게시글 정보 수정하기')
+  console.log('게시글 정보 수정하기');
   console.log(req.body);
   boardEditAPI(req, res);
 });
@@ -87,8 +87,7 @@ router.post('/edit', upload.single('board_img'), function(req, res, next) {
   게시글 삭제
 */
 router.get('/delete', function(req, res, next) {
-  console.log('게시글 삭제하기')
-  console.log(req.body);
+  console.log('게시글 삭제하기');
   boardDeleteAPI(req, res);
 });
 

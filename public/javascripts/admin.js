@@ -247,3 +247,41 @@ var department_edit_submit = function() {
     }
 }
 
+/*
+    푸시알람 Form에 입력값 빠진 것 있는지 체크
+*/
+var validatePushalarmInfo = function() {
+    if($('input[name="pushalarm_title"]').val() == '') {
+        alert('제목을 입력해주세요.')
+        return false;
+    }
+    if($('input[name="pushalarm_message"]').val() == '') {
+        alert('메시지를 입력해주세요.')
+        return false;
+    }
+    return true;
+}
+
+/*
+    푸시알람 버튼
+*/
+var pushalarm_submit = function() {
+    var pushalarm_form = document.getElementById("pushalarm_form");
+
+    if(validatePushalarmInfo()) {
+        pushalarm_form.submit();
+    }
+}
+
+/*
+    비밀번호 초기화 버튼
+*/
+var account_alert_resetpassword = function(user_id) {
+  if(confirm('비밀번호를 초기화하시겠습니까?')) {
+    window.location.href = '/account/resetpassword?id=' + user_id;
+    return;
+  }
+  else {
+    return;
+  }
+}
