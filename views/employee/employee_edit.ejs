@@ -125,16 +125,22 @@
                                     <input type="text" class="form-control" name="employee_extensionnum" placeholder="129">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">생일</label>
                                     <input type="text" class="form-control" name="employee_birth" placeholder="1990-08-30">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">입사일</label>
                                     <input type="text" class="form-control" name="employee_join" placeholder="2020-03-23">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">퇴사일</label>
+                                    <input type="text" class="form-control" name="employee_leave" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -231,6 +237,17 @@
                 }, function(start, end, label) {
                     
                 });
+
+                $('input[name="employee_leave"]').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    locale: {
+                        format: 'YYYY-MM-DD'
+                    }
+                }, function(start, end, label) {
+                    
+                });
             });
         });
     </script>
@@ -260,7 +277,7 @@
             $('input[name="employee_phone"]').val('<%= employee.phone %>');	
             $('input[name="employee_extensionnum"]').val('<%= employee.extension_number %>');	
             $('input[name="employee_birth"]').val('<%= employee.birth %>');	
-            $('input[name="employee_join"]').val('<%= employee.join_date %>');	
+            $('input[name="employee_join"]').val('<%= employee.join_date %>');
             $('#employee_division_select').val('<%= employee.division_id %>').prop('selected', true);	
             $('#employee_department_select').val('<%= employee.department_id %>').prop('selected', true);	
             $('#employee_position_select').val('<%= employee.position_id %>').prop('selected', true);
@@ -269,6 +286,11 @@
             	$('#profile_preview').css('display', 'block');
             	$('#profile_preview').attr('src', '<%= employee.profile_img %>');
             <% } %>	
+
+            $('input[name="employee_leave"]').val('1901-01-01');
+            <% if(employee.leave_date != null) { %>
+                $('input[name="employee_leave"]').val('<%= employee.leave_date %>');
+            <% } %> 
             
     	}
     </script>

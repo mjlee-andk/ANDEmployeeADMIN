@@ -112,6 +112,15 @@
                                     <input type="text" class="form-control" name="department_orderseq" placeholder="" value="<%= department.order_seq %>">
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">활성화</label>
+                                    <select id="department_is_active_select" class="form-control" name="department_isactive">
+                                        <option value="1">ON</option>
+                                        <option value="0">OFF</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <button type="button" class="btn btn-primary" onclick="department_edit_submit()">수정</button>
                     </form>
@@ -138,6 +147,7 @@
     <script>
     	window.onload = function(){
             $('#department_division_select').val('<%= department.division_id %>').prop('selected', true);
+            $('#department_is_active_select').val('<%= department.is_active %>').prop('selected', true);
         }
     </script>
 

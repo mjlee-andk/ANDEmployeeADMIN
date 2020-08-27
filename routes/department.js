@@ -63,7 +63,8 @@ router.post('/edit', function(req, res, next) {
 module.exports = router;
 
 var departmentsAPI = function(req, res) {
-  var query = 'SELECT d.id, d.name AS department_name, d.telephone, d.order_seq, d.division_id, dv.name AS division_name FROM departments AS d LEFT JOIN divisions AS dv ON d.division_id = dv.id';
+  var query = 'SELECT d.id, d.name AS department_name, d.telephone, d.order_seq, d.is_active, d.division_id, dv.name AS division_name FROM departments AS d LEFT JOIN divisions AS dv ON d.division_id = dv.id';
+  // var queryWhere = ' WHERE d.is_active = 1';
   var queryOrder = ' ORDER BY dv.name ASC, d.order_seq ASC';
 
   connection.query(query + queryOrder, (error, rows, fields) => {
@@ -87,7 +88,7 @@ var departmentAPI = function(req, res) {
 
 	const promise1 = new Promise(function(resolve, reject){
 		var department_id = req.query.id;
-		var query = 'SELECT d.id, d.name AS department_name, d.telephone, d.order_seq, d.division_id, dv.name AS division_name FROM departments AS d LEFT JOIN divisions AS dv ON d.division_id = dv.id';
+		var query = 'SELECT d.id, d.name AS department_name, d.telephone, d.order_seq, d.is_active, d.division_id, dv.name AS division_name FROM departments AS d LEFT JOIN divisions AS dv ON d.division_id = dv.id';
 	  	var queryWhere = ' WHERE d.id = "' + department_id + '"';
 
 		connection.query(query + queryWhere, (error, rows, fields) => {
@@ -101,7 +102,6 @@ var departmentAPI = function(req, res) {
 			resolve(rows[0]);
 		});
 	});
-	// 'SELECT MAX(d.order_seq) FROM departments AS d WHERE division_id = "' + body.department_division + '"'
 	const promise2 = new Promise(function(resolve, reject){
 		var query = 'SELECT dv.id, dv.name FROM divisions AS dv ORDER BY name ASC';
 
@@ -163,7 +163,8 @@ var departmentAddAPI = function(req, res){
 			division_id : body.department_division,
 			name : body.department_name,
 			telephone : body.department_telephone,
-			order_seq : max_order + 1
+			order_seq : max_order + 1,
+			is_active : 1
 		}
 
 		connection.query('INSERT INTO departments SET ?', department_post, (error, rows, fields) => {
@@ -185,7 +186,8 @@ var departmentEditAPI = function(req, res){
 		division_id : body.department_division,
 		name : body.department_name,
 		telephone : body.department_telephone,
-		order_seq : body.department_orderseq
+		order_seq : body.department_orderseq,
+		is_active : body.department_isactive
 	}
 
 	connection.query('UPDATE departments SET ? WHERE id = "' + body.department_id + '"', department_post, (error, rows, fields) => {

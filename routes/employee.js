@@ -7,7 +7,7 @@ const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
 
-const SERVER = 'http://121.126.225.132:3001'
+const SERVER = 'http://121.126.225.132:3001';
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -66,7 +66,7 @@ router.post('/employeeadd', upload.single('employee_profile'), function(req, res
   직원 수정 페이지
 */
 router.get('/employeeedit', function(req, res, next) {
-  console.log('직원 수정 페이지')
+  console.log('직원 수정 페이지');
   employeeAPI(req, res);
   
 });
@@ -75,7 +75,7 @@ router.get('/employeeedit', function(req, res, next) {
   직원 정보 수정
 */
 router.post('/employeeedit', upload.single('employee_profile'), function(req, res, next) {
-  console.log('직원 정보 수정하기')
+  console.log('직원 정보 수정하기');
   console.log(req.body);
   employeeEditAPI(req, res);
 });
@@ -84,9 +84,10 @@ module.exports = router;
 
 var employeesAPI = function(req, res) {
   var query = 'SELECT e.id, e.name, e.gender, e.profile_img, e.extension_number, e.phone, e.birth, e.join_date, e.leave_date, dv.name AS division_name, dp.name AS department_name, p.name AS position_name FROM employees AS e LEFT JOIN divisions AS dv ON e.division_id = dv.id LEFT JOIN departments AS dp ON e.department_id = dp.id LEFT JOIN positions AS p ON e.position_id = p.id';
+  var queryWhere = ' WHERE e.leave_date IS NULL';
   var queryOrder = ' ORDER BY dv.name ASC, e.name ASC, p.priority ASC';
 
-  connection.query(query + queryOrder, (error, rows, fields) => {
+  connection.query(query + queryWhere + queryOrder, (error, rows, fields) => {
     var resultCode = 404;
     var message = "에러가 발생했습니다.";
 
@@ -353,6 +354,8 @@ var employeeEditAPI = function(req, res){
   var body = req.body;
   var file = req.file;
 
+  console.log(body.employee_leave);
+
   var employee_post = {
     name : body.employee_name,
     gender : body.employee_gender,
@@ -370,6 +373,11 @@ var employeeEditAPI = function(req, res){
 
     if(file != undefined) {
       employee_post['profile_img'] = SERVER + '/and_employees_profile/' + file.originalname;
+    }
+
+    if(body.employee_leave != '1901-01-01') {
+      employee_post.leave_date = body.employee_leave;
+      console.log('leave_date!!!!!!!!!!!');
     }
 
     connection.query('UPDATE employees SET ? WHERE id = "' + body.employee_id + '"', employee_post, (error, rows, fields) => {
