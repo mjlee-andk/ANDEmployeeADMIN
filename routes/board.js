@@ -12,6 +12,7 @@ const SERVER = 'http://121.126.225.132:3001';
 const ADMIN_ID = '9373d9f6-e6ca-11ea-9982-20cf305809b8';
 const GONGJI_ID = '6797f061-c997-11ea-9982-20cf305809b8';
 const GYEONGJOSA_ID = '38509e8c-cb37-11ea-9982-20cf305809b8';
+const config = require('../config/config');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -44,7 +45,15 @@ var upload = multer({storage: storage})
 */
 router.get('/', function(req, res, next) {
   	console.log('게시글 관리 페이지');
-	boardsAPI(req, res);
+  	if (req.session.adminsession == config.sessionSecret) {
+	   	boardsAPI(req, res);
+	}
+	else {
+		// res.render('../views/auth/auth_index.ejs', {
+		//     'message' : ''
+		// })
+		res.redirect('/');
+	}	
 });
 
 /*
@@ -52,7 +61,15 @@ router.get('/', function(req, res, next) {
 */
 router.get('/add', function(req, res, next) {
   	console.log('게시글 등록 페이지');
-  	categoryAPI(req, res);
+  	
+  	if (req.session.adminsession == config.sessionSecret) {
+	   	categoryAPI(req, res);
+	}
+	else {
+		res.render('../views/auth/auth_index.ejs', {
+		    'message' : ''
+		})
+	}
 });
 
 /*
@@ -70,9 +87,16 @@ router.post('/add', upload.single('board_img'), function(req, res, next) {
   게시글 수정 페이지
 */
 router.get('/edit', function(req, res, next) {
-  console.log('게시글 수정 페이지');
-  boardAPI(req, res);
-  
+	console.log('게시글 수정 페이지');
+	
+  	if (req.session.adminsession == config.sessionSecret) {
+	   	boardAPI(req, res);
+	}
+	else {
+		res.render('../views/auth/auth_index.ejs', {
+		    'message' : ''
+		})
+	}
 });
 
 /*
@@ -306,7 +330,7 @@ var boardAddAPI = function(req, res){
 				}
 			});
 		}
-		res.redirect('/board')
+		res.redirect('/board');
 	});
 }
 

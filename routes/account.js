@@ -8,6 +8,7 @@ const multer = require('multer');
 const moment = require('moment');
 
 const SERVER = 'http://121.126.225.132:3001';
+const config = require('../config/config');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -24,7 +25,15 @@ connection.connect();
 */
 router.get('/', function(req, res, next) {
 	console.log('계정관리 페이지');
-	accountsAPI(req, res);
+	if (req.session.adminsession == config.sessionSecret) {
+	   	accountsAPI(req, res);
+	}
+	else {
+		// res.render('../views/auth/auth_index.ejs', {
+		//     'message' : ''
+		// })
+		res.redirect('/');
+	}	
 });
 
 /*

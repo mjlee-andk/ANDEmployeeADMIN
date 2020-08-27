@@ -8,6 +8,7 @@ const multer = require('multer');
 const moment = require('moment');
 
 const SERVER = 'http://121.126.225.132:3001';
+const config = require('../config/config');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -36,26 +37,42 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage})
 
 /*
-  직원 관리 페이지
+  직원 관리 페이지     
 */
 router.get('/', function(req, res, next) {
   console.log('직원 관리 페이지');
-  employeesAPI(req, res);
+  console.log(req.session.adminsession);
+  if (req.session.adminsession == config.sessionSecret) {
+    employeesAPI(req, res);  
+  }
+  else {
+    // res.render('../views/auth/auth_index.ejs', {
+    //     'message' : ''
+    // })
+    res.redirect('/');
+  }
 });
 
 /*
   직원 등록 페이지
 */
-router.get('/employeeadd', function(req, res, next) {
+router.get('/add', function(req, res, next) {
   console.log('직원 등록 페이지');
-  departmentsAPI(req, res);
+  if (req.session.adminsession == config.sessionSecret) {
+    departmentsAPI(req, res);  
+  }
+  else {
+    res.render('../views/auth/auth_index.ejs', {
+        'message' : ''
+    })
+  }  
 });
 
 /*
   직원 등록
   upload.single() 부분이 파일 있을 경우 서버에 업로드 해주는 부분
 */
-router.post('/employeeadd', upload.single('employee_profile'), function(req, res, next) {
+router.post('/add', upload.single('employee_profile'), function(req, res, next) {
   console.log('직원 등록하기');
   console.log(req.body);
   employeeAddAPI(req, res);
@@ -65,7 +82,7 @@ router.post('/employeeadd', upload.single('employee_profile'), function(req, res
 /*
   직원 수정 페이지
 */
-router.get('/employeeedit', function(req, res, next) {
+router.get('/edit', function(req, res, next) {
   console.log('직원 수정 페이지');
   employeeAPI(req, res);
   
@@ -74,7 +91,7 @@ router.get('/employeeedit', function(req, res, next) {
 /*
   직원 정보 수정
 */
-router.post('/employeeedit', upload.single('employee_profile'), function(req, res, next) {
+router.post('/edit', upload.single('employee_profile'), function(req, res, next) {
   console.log('직원 정보 수정하기');
   console.log(req.body);
   employeeEditAPI(req, res);
@@ -87,6 +104,7 @@ var employeesAPI = function(req, res) {
   var queryWhere = ' WHERE e.leave_date IS NULL';
   var queryOrder = ' ORDER BY dv.name ASC, e.name ASC, p.priority ASC';
 
+
   connection.query(query + queryWhere + queryOrder, (error, rows, fields) => {
     var resultCode = 404;
     var message = "에러가 발생했습니다.";
@@ -98,7 +116,7 @@ var employeesAPI = function(req, res) {
       message = "성공"
     }
 
-    res.render('../views/index.ejs', {
+    res.render('../views/employee/employee_index.ejs', {
         'code': resultCode,
         'message': message,
         'data': rows
@@ -346,7 +364,7 @@ var employeeAddAPI = function(req, res){
   });
 
   Promise.all([promise1, promise2]).then(function (values) {
-      res.redirect('/')
+      res.redirect('/employee')
   });
 }
 
@@ -377,7 +395,6 @@ var employeeEditAPI = function(req, res){
 
     if(body.employee_leave != '1901-01-01') {
       employee_post.leave_date = body.employee_leave;
-      console.log('leave_date!!!!!!!!!!!');
     }
 
     connection.query('UPDATE employees SET ? WHERE id = "' + body.employee_id + '"', employee_post, (error, rows, fields) => {
@@ -419,6 +436,6 @@ var employeeEditAPI = function(req, res){
   });
 
   Promise.all([promise1, promise2]).then(function (values) {
-      res.redirect('/')
+      res.redirect('/employee')
   });
 }

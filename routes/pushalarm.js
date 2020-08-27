@@ -8,7 +8,8 @@ const multer = require('multer');
 const moment = require('moment');
 const fcm = require('../fcm/fcm');
 
-const SERVER = 'http://121.126.225.132:3001'
+const SERVER = 'http://121.126.225.132:3001';
+const config = require('../config/config');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -25,9 +26,17 @@ connection.connect();
 */
 router.get('/', function(req, res, next) {
   	console.log('푸시알람 페이지');
-	res.render('../views/pushalarm/pushalarm_index.ejs', {
-		
-	})
+  	if (req.session.adminsession == config.sessionSecret) {
+	   	res.render('../views/pushalarm/pushalarm_index.ejs', {
+			
+		})
+	}
+	else {
+		// res.render('../views/auth/auth_index.ejs', {
+		//     'message' : ''
+		// })
+		res.redirect('/');
+	}	
 });
 
 /*

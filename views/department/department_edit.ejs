@@ -48,11 +48,11 @@
                     <li class="nav-item pcoded-hasmenu">
                         <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">관리목록</span></a>
                         <ul class="pcoded-submenu">
-                            <li><a href="/">직원관리</a></li>
+                            <li><a href="/employee">직원관리</a></li>
                             <li><a href="/board">게시글관리</a></li>
                             <li><a href="/department">부서관리</a></li>
-                            <li><a href="/">푸시알림관리</a></li>
-                            <li><a href="/">계정관리</a></li>
+                            <li><a href="/pushalarm">푸시알림관리</a></li>
+                            <li><a href="/account">계정관리</a></li>
                         </ul>
                     </li>
                 </ul>               
@@ -64,11 +64,22 @@
     <header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed">
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-            <a href="/" class="b-brand">
+            <a href="/employee" class="b-brand">
                 <!-- ========   change your logo hear   ============ -->
                 <!-- ========   change your logo hear   ============ -->
                 <img src="../assets/images/logo.png" alt="" class="logo" style="width:100px;">
             </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <div class="dropdown drp-user">
+                        <a href="#" onclick="logout()" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="feather icon-power"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </header>
     <!-- [ Header ] end -->

@@ -7,7 +7,8 @@ const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
 
-const SERVER = 'http://121.126.225.132:3001'
+const SERVER = 'http://121.126.225.132:3001';
+const config = require('../config/config');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -24,7 +25,15 @@ connection.connect();
 */
 router.get('/', function(req, res, next) {
   console.log('부서 관리 페이지');
-  departmentsAPI(req, res);
+  if (req.session.adminsession == config.sessionSecret) {
+    departmentsAPI(req, res);
+  }
+  else {
+    // res.render('../views/auth/auth_index.ejs', {
+    //     'message' : ''
+    // })
+    res.redirect('/');
+  }  
 });
 
 /*
@@ -32,7 +41,14 @@ router.get('/', function(req, res, next) {
 */
 router.get('/add', function(req, res, next) {
   console.log('부서 등록 페이지');
-  divisionsAPI(req, res);
+  if (req.session.adminsession == config.sessionSecret) {
+    divisionsAPI(req, res);
+  }
+  else {
+    res.render('../views/auth/auth_index.ejs', {
+        'message' : ''
+    })
+  }  
 });
 
 /*
@@ -48,7 +64,14 @@ router.post('/add', function(req, res, next) {
 */
 router.get('/edit', function(req, res, next) {
   console.log('부서 수정 페이지');
-  departmentAPI(req, res);
+  if (req.session.adminsession == config.sessionSecret) {
+    departmentAPI(req, res);
+  }
+  else {
+    res.render('../views/auth/auth_index.ejs', {
+        'message' : ''
+    })
+  }  
 });
 
 /*

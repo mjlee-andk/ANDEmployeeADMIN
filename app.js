@@ -4,11 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var session = require('express-session');
+var bodyParser = require('body-parser');
+
+var authRouter = require('./routes/auth');
 var employeeRouter = require('./routes/employee');
 var boardRouter = require('./routes/board');
 var departmentRouter = require('./routes/department');
 var pushalarmRouter = require('./routes/pushalarm');
 var accountRouter = require('./routes/account');
+
+var config = require('./config/config');
 
 var app = express();
 
@@ -22,7 +28,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', employeeRouter);
+app.use(bodyParser.urlencoded({extended: false}));	// 세션 설정
+app.use(session({
+	secret: config.sessionSecret,
+	resave: true,
+	saveUninitialized: true
+}))
+
+app.use('/', authRouter);
+app.use('/employee', employeeRouter);
 app.use('/board', boardRouter);
 app.use('/department', departmentRouter);
 app.use('/pushalarm', pushalarmRouter);

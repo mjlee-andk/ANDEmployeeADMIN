@@ -285,3 +285,49 @@ var account_alert_resetpassword = function(user_id) {
     return;
   }
 }
+
+/*
+    로그인 Form에 입력값 빠진 것 있는지 체크
+*/
+var validateAuthLoginAlarmInfo = function() {
+    if($('input[name="auth_email"]').val() == '') {
+        alert('메일계정을 입력해주세요.');
+        return false;
+    }
+    if($('input[name="auth_password"]').val() == '') {
+        alert('비밀번호를 입력해주세요.');
+        return false;
+    }
+    return true;
+}
+
+/*
+    로그인 버튼
+*/
+var auth_submit = function() {
+    var auth_login_form = document.getElementById("auth_login_form");
+
+    if(validateAuthLoginAlarmInfo()) {
+        auth_login_form.submit();
+    }
+}
+
+/*
+    로그아웃 버튼
+*/
+var logout = function() {
+    if(confirm('로그아웃 하시겠습니까?')) {
+        window.location.href = '/logout';
+        return;
+    }
+}
+
+
+/*
+    로그인 엔터키 눌렀을때 실행 되도록
+*/
+var enter_login = function() {
+    if(window.event.keyCode == 13) {
+        auth_submit();
+    }
+}

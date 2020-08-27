@@ -40,13 +40,13 @@
     <!-- [ Pre-loader ] End -->
     <!-- [ navigation menu ] start -->
     <nav class="pcoded-navbar menupos-fixed ">
-        <div class="navbar-wrapper  ">
+        <div class="navbar-wrapper">
             <div class="navbar-content scroll-div " >
                 <ul class="nav pcoded-inner-navbar ">
                     <li class="nav-item pcoded-hasmenu">
                         <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">관리목록</span></a>
                         <ul class="pcoded-submenu">
-                            <li><a href="/">직원관리</a></li>
+                            <li><a href="/employee">직원관리</a></li>
                             <li><a href="/board">게시글관리</a></li>
                             <li><a href="/department">부서관리</a></li>
                             <li><a href="/pushalarm">푸시알림관리</a></li>
@@ -62,11 +62,22 @@
     <header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed">
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-            <a href="/" class="b-brand">
+            <a href="/employee" class="b-brand">
                 <!-- ========   change your logo hear   ============ -->
                 <!-- ========   change your logo hear   ============ -->
                 <img src="assets/images/logo.png" alt="" class="logo" style="width:100px;">
             </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <div class="dropdown drp-user">
+                        <a href="#" onclick="logout()" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="feather icon-power"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </header>
     <!-- [ Header ] end -->
@@ -98,7 +109,7 @@
                         <div class="card-body">
                             <div class="row align-items-center m-l-0">
                                 <div class="col-sm-6 offset-sm-6 text-right">
-                                    <button class="btn btn-success btn-sm  mb-3 btn-round" onclick="location.href='/employeeadd'"><i class="feather icon-plus"></i>직원 등록</button>
+                                    <button class="btn btn-success btn-sm  mb-3 btn-round" onclick="location.href='/employee/add'"><i class="feather icon-plus"></i>직원 등록</button>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -124,7 +135,7 @@
                                             <td><%= data[i].department_name %></td>
                                             <td><%= data[i].position_name %></td>
                                             <td>
-                                                <a href="/employeeedit?id=<%= data[i].id %>" class="btn btn-info btn-sm" ><i class="feather icon-edit"></i>&nbsp;수정</a>
+                                                <a href="/employee/edit?id=<%= data[i].id %>" class="btn btn-info btn-sm" ><i class="feather icon-edit"></i>&nbsp;수정</a>
                                             </td>
                                         </tr>
                                         <% } %>
@@ -142,6 +153,8 @@
     <!-- [ Main Content ] end -->
 
     <!-- Required Js -->
+    <script src="javascripts/admin.js"></script>
+
     <script src="assets/js/vendor-all.min.js"></script>
     <script src="assets/js/plugins/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.min.js"></script>
