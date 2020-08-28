@@ -5,18 +5,10 @@ const mysql = require('mysql');
 const moment = require('moment');
 const bcrypt = require('bcrypt-nodejs');
 
-const SERVER = 'http://121.126.225.132:3001';
-const config = require('../config/config');
+const config = require('../config/configure');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    port: 3307,
-    password: 'polygon',
-    database: 'andkorea'
-});
-
-connection.connect();
+const connection = config.db;
+config.dbConnect(config.db);
 
 /*
   로그인 페이지

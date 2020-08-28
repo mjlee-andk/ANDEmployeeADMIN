@@ -8,17 +8,9 @@ const multer = require('multer');
 const moment = require('moment');
 
 const IMAGE_SERVER_ADDRESS = 'http://121.126.225.132';
-const config = require('../config/config');
+const config = require('../config/configure');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    port: 3307,
-    password: 'polygon',
-    database: 'andkorea'
-});
-
-connection.connect();
+const connection = config.db;
 
 /*
   사진 서버 업로드 config

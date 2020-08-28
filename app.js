@@ -14,7 +14,7 @@ var departmentRouter = require('./routes/department');
 var pushalarmRouter = require('./routes/pushalarm');
 var accountRouter = require('./routes/account');
 
-var config = require('./config/config');
+var config = require('./config/configure');
 
 var app = express();
 
@@ -44,9 +44,9 @@ app.use('/pushalarm', pushalarmRouter);
 app.use('/account', accountRouter);
 
 // 프로필 사진 저장 경로
-app.use('/and_employees_profile', express.static('uploads'));
+app.use('/and_employees_profile', express.static('and_employees_profile'));
 // 게시글 사진 저장 경로
-app.use('/boards', express.static('uploads_board'));
+app.use('/and_boards_image', express.static('and_boards_image'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

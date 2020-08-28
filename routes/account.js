@@ -7,18 +7,9 @@ const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
 
-const SERVER = 'http://121.126.225.132:3001';
-const config = require('../config/config');
+const config = require('../config/configure');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    port: 3307,
-    password: 'polygon',
-    database: 'andkorea'
-});
-
-connection.connect();
+const connection = config.db;
 
 /*
   계정관리 페이지

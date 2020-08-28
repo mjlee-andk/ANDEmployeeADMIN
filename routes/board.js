@@ -12,17 +12,9 @@ const IMAGE_SERVER_ADDRESS = 'http://121.126.225.132';
 const ADMIN_ID = '9373d9f6-e6ca-11ea-9982-20cf305809b8';
 const GONGJI_ID = '6797f061-c997-11ea-9982-20cf305809b8';
 const GYEONGJOSA_ID = '38509e8c-cb37-11ea-9982-20cf305809b8';
-const config = require('../config/config');
+const config = require('../config/configure');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    port: 3307,
-    password: 'polygon',
-    database: 'andkorea'
-});
-
-connection.connect();
+const connection = config.db;
 
 /*
   사진 서버 업로드 config
