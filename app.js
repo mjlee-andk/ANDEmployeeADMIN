@@ -28,7 +28,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({extended: false}));	// 세션 설정
+// 세션 설정
+app.use(bodyParser.urlencoded({extended: false}));	
 app.use(session({
 	secret: config.sessionSecret,
 	resave: true,

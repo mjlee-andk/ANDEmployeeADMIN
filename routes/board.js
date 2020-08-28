@@ -8,7 +8,7 @@ const multer = require('multer');
 const moment = require('moment');
 const fcm = require('../fcm/fcm');
 
-const SERVER = 'http://121.126.225.132:3001';
+const IMAGE_SERVER_ADDRESS = 'http://121.126.225.132';
 const ADMIN_ID = '9373d9f6-e6ca-11ea-9982-20cf305809b8';
 const GONGJI_ID = '6797f061-c997-11ea-9982-20cf305809b8';
 const GYEONGJOSA_ID = '38509e8c-cb37-11ea-9982-20cf305809b8';
@@ -30,7 +30,7 @@ connection.connect();
 var storage = multer.diskStorage({
   
   destination: function(req, file, cb){
-    cb(null, 'uploads_board/')  // 파일 저장할 폴더명 입력
+    cb(null, 'and_boards_image/')  // 파일 저장할 폴더명 입력
   },
   
   filename: function(req, file, cb) {
@@ -264,7 +264,7 @@ var boardAddAPI = function(req, res){
 	}
 
 	if(file != undefined) {
-		employee_post['image'] = SERVER + '/boards/' + file.originalname;
+		employee_post['image'] = IMAGE_SERVER_ADDRESS + '/boards/' + file.originalname;
 	}
 
   	connection.query('INSERT INTO boards SET ?', board_post, (error, rows, fields) => {
@@ -346,7 +346,7 @@ var boardEditAPI = function(req, res){
 	}
 
 	if(file != undefined) {
-		employee_post['image'] = SERVER + '/boards/' + file.originalname;
+		employee_post['image'] = IMAGE_SERVER_ADDRESS + '/boards/' + file.originalname;
 	}
 
 	connection.query('UPDATE boards SET ?, createdat = createdat WHERE id = "' + body.board_id + '"', board_post, (error, rows, fields) => {

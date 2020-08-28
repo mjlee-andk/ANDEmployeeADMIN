@@ -88,7 +88,7 @@ module.exports = router;
 var departmentsAPI = function(req, res) {
   var query = 'SELECT d.id, d.name AS department_name, d.telephone, d.order_seq, d.is_active, d.division_id, dv.name AS division_name FROM departments AS d LEFT JOIN divisions AS dv ON d.division_id = dv.id';
   // var queryWhere = ' WHERE d.is_active = 1';
-  var queryOrder = ' ORDER BY dv.name ASC, d.order_seq ASC';
+  var queryOrder = ' ORDER BY dv.name ASC, d.order_seq ASC, d.name ASC';
 
   connection.query(query + queryOrder, (error, rows, fields) => {
     var resultCode = 404;

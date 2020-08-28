@@ -7,7 +7,7 @@ const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
 
-const SERVER = 'http://121.126.225.132:3001';
+const IMAGE_SERVER_ADDRESS = 'http://121.126.225.132';
 const config = require('../config/config');
 
 const connection = mysql.createConnection({
@@ -26,7 +26,7 @@ connection.connect();
 var storage = multer.diskStorage({
   
   destination: function(req, file, cb){
-    cb(null, 'uploads/')  // 파일 저장할 폴더명 입력
+    cb(null, 'and_employees_profile/')  // 파일 저장할 폴더명 입력
   },
   
   filename: function(req, file, cb) {
@@ -317,7 +317,7 @@ var employeeAddAPI = function(req, res){
   const promise1 = new Promise(function(resolve, reject){    
 
     if(file != undefined) {
-      employee_post['profile_img'] = SERVER + '/and_employees_profile/' + file.originalname;
+      employee_post['profile_img'] = IMAGE_SERVER_ADDRESS + '/and_employees_profile/' + file.originalname;
     }
 
     connection.query('INSERT INTO employees SET ?', employee_post, (error, rows, fields) => {
@@ -390,7 +390,7 @@ var employeeEditAPI = function(req, res){
   const promise1 = new Promise(function(resolve, reject){    
 
     if(file != undefined) {
-      employee_post['profile_img'] = SERVER + '/and_employees_profile/' + file.originalname;
+      employee_post['profile_img'] = IMAGE_SERVER_ADDRESS + '/and_employees_profile/' + file.originalname;
     }
 
     if(body.employee_leave != '1901-01-01') {
