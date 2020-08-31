@@ -8,7 +8,7 @@ const db = mysql.createConnection({
 });
 
 var dbConnect = function(database) {
-	database.connect(function(err) {            
+	database.connect(function(err) {
 		if(err) {                            
 			console.log('error when connecting to db:', err);
 			setTimeout(dbConnect, 2000); 
@@ -20,7 +20,7 @@ var dbConnect = function(database) {
 		if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
 			return dbConnect();
 		} else {                                    
-			throw err;                              
+			throw err;
 		}
 	});
 }

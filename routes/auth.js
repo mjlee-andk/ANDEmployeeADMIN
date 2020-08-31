@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt-nodejs');
 const config = require('../config/configure');
 
 const connection = config.db;
-config.dbConnect(config.db);
+config.dbConnect(connection);
 
 /*
   로그인 페이지
