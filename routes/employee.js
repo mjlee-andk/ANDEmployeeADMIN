@@ -11,6 +11,7 @@ const IMAGE_SERVER_ADDRESS = 'http://121.126.225.132';
 const config = require('../config/configure');
 
 const connection = config.db;
+// config.dbConnect();
 
 /*
   사진 서버 업로드 config
