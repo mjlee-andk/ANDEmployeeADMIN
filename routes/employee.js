@@ -141,7 +141,10 @@ var employeeAPI = function(req, res) {
             rows[0].join_date = moment(join_date_origin).format('YYYY-MM-DD');
 
             // rows[0].annual_incomes = rows[0].annual_incomes.replace(/(?:\r\n|\r|\n)/g, '<br />');
-            rows[0].annual_incomes = rows[0].annual_incomes.replace(/(?:\r\n|\r|\n)/g, '&#13;');
+            if(rows[0].annual_incomes != null) {
+              rows[0].annual_incomes = rows[0].annual_incomes.replace(/(?:\r\n|\r|\n)/g, '&#13;');  
+            }
+            
 
             resolve(rows[0]);
           });
