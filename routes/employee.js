@@ -140,7 +140,10 @@ var employeeAPI = function(req, res) {
             var join_date_origin = rows[0].join_date;
             rows[0].join_date = moment(join_date_origin).format('YYYY-MM-DD');
 
-          resolve(rows[0]);
+            // rows[0].annual_incomes = rows[0].annual_incomes.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            rows[0].annual_incomes = rows[0].annual_incomes.replace(/(?:\r\n|\r|\n)/g, '&#13;');
+
+            resolve(rows[0]);
           });
       })
 

@@ -125,7 +125,7 @@
                                     <input type="text" class="form-control" name="employee_school_name" placeholder="서울대학교">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">프로필 사진</label>
                                     <div>
@@ -136,12 +136,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">연봉</label>
-                                    <textarea style="resize:none" rows="10" cols="30" class="form-control" name="employee_annual_incomes" placeholder="2020년 4,000만원"></textarea>
+                                    <textarea style="resize:none" rows="7" cols="30" class="form-control" name="employee_annual_incomes" placeholder="2020년 4,000만원"></textarea>
                                 </div>
                             </div>
                             <div id="image_container" class="col-md-12">
                                 <img id="profile_preview" style="display: none; max-width:200px; width: 100%">
                             </div>
+
                         </div>
                         <button type="button" class="btn btn-primary" onclick="employee_edit_submit()">수정</button>
                     </form>
@@ -225,7 +226,7 @@
 
             $('#employee_final_education_select').val('<%= employee.final_education %>').prop('selected', true);   
             $('input[name="employee_school_name"]').val('<%= employee.school_name %>');
-            $('textarea[name="employee_annual_incomes"]').val('<%= employee.annual_incomes %>');            
+            $('textarea[name="employee_annual_incomes"]').html('<%- employee.annual_incomes %>');            
             
             
             <% if(employee.profile_img != null) { %>
