@@ -279,6 +279,8 @@ var departmentsAPI = function(req, res) {
       var adks_departments = divisions[1].departments;
       var positions = values[1];
 
+      console.log(divisions);
+
       res.render('../views/employee/employee_add.ejs', {
           'divisions': divisions,
           'adk_departments': adk_departments,
