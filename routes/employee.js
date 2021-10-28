@@ -123,7 +123,7 @@ var employeeAPI = function(req, res) {
   // 직원 정보 가져오기
   const promise1 = new Promise(function(resolve, reject){ 
     console.log(employee_id)
-      var query = 'SELECT e.id, e.name, u.account AS email, u.is_push, e.gender, e.profile_img, e.extension_number, e.phone, e.birth, e.join_date, e.leave_date, dv.id AS division_id, dv.name AS division_name, dp.id AS department_id, dp.name AS department_name, p.id AS position_id, p.name AS position_name FROM employees AS e LEFT JOIN divisions AS dv ON e.division_id = dv.id LEFT JOIN departments AS dp ON e.department_id = dp.id LEFT JOIN positions AS p ON e.position_id = p.id LEFT JOIN users AS u ON u.employee_id = e.id WHERE e.id = ?'
+      var query = 'SELECT e.id, e.name, u.account AS email, u.is_push, e.gender, e.profile_img, e.extension_number, e.phone, e.birth, e.join_date, e.leave_date, e.school_name, e.final_education, e.annual_incomes, dv.id AS division_id, dv.name AS division_name, dp.id AS department_id, dp.name AS department_name, p.id AS position_id, p.name AS position_name FROM employees AS e LEFT JOIN divisions AS dv ON e.division_id = dv.id LEFT JOIN departments AS dp ON e.department_id = dp.id LEFT JOIN positions AS p ON e.position_id = p.id LEFT JOIN users AS u ON u.employee_id = e.id WHERE e.id = ?'
       connection.query(query, [employee_id], (error, rows, fields) => {
             var resultCode = 404;
             var message = "에러가 발생했습니다.";
@@ -249,7 +249,7 @@ var departmentsAPI = function(req, res) {
             'name': adksList[0].division_name,
             'departments': adksList
           }
-          
+
           var result = [adk, adks];
           resolve(result);
         });
@@ -288,10 +288,12 @@ var departmentsAPI = function(req, res) {
     });
 }
 
+// 신규 직원 등록
 var employeeAddAPI = function(req, res){
   var body = req.body;
   var file = req.file;
 
+  // 직원 정보 등록
   var employee_post = {
     id : uuid(),
     name : body.employee_name,
@@ -304,7 +306,10 @@ var employeeAddAPI = function(req, res){
     leave_date : null,
     division_id : body.employee_division,
     department_id : body.employee_department,
-    position_id : body.employee_position
+    position_id : body.employee_position,
+    final_education : body.employee_final_education,
+    school_name : body.employee_school_name,
+    annual_incomes : body.employee_annual_incomes
   }
 
   const promise1 = new Promise(function(resolve, reject){    
@@ -377,7 +382,10 @@ var employeeEditAPI = function(req, res){
     leave_date : null,
     division_id : body.employee_division,
     department_id : body.employee_department,
-    position_id : body.employee_position
+    position_id : body.employee_position,
+    final_education : body.employee_final_education,
+    school_name : body.employee_school_name,
+    annual_incomes : body.employee_annual_incomes
   }
 
   const promise1 = new Promise(function(resolve, reject){    

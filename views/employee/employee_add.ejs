@@ -94,20 +94,19 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">최종학력</label>
-                                    <select id="employee_final_education_select" class="form-control" name="employee_final_education">
-                                        
-                                        <option value="<%= positions[i].id %>">고졸</option>
-                                        <option value="<%= positions[i].id %>">대졸(전문대)</option>
-                                        <option value="<%= positions[i].id %>">대졸(4년제)</option>
-                                        <option value="<%= positions[i].id %>">석사졸</option>
-                                        
+                                    <select id="employee_final_education_select" class="form-control" name="employee_final_education">                                        
+                                        <option value="0">고졸</option>
+                                        <option value="1">대졸(전문대)</option>
+                                        <option value="2">대졸(4년제)</option>
+                                        <option value="3">석사</option>
+                                        <option value="4">박사</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label class="form-label">학교</label>
-                                    <input type="text" class="form-control" name="employee_school_info" placeholder="서울대학교">
+                                    <label class="form-label">학교명</label>
+                                    <input type="text" class="form-control" name="employee_school_name" placeholder="서울대학교">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -116,6 +115,12 @@
                                     <div>
                                         <input type="file" class="validation-file" name="employee_profile" accept="image/*" onchange="setPreview(event)">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">연봉</label>
+                                    <textarea style="resize:none" rows="10" cols="30" class="form-control" name="employee_annual_incomes" placeholder="2020년 4,000만원"></textarea>
                                 </div>
                             </div>
                             <div id="image_container" class="col-md-12">
