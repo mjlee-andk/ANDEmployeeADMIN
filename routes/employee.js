@@ -249,7 +249,7 @@ var departmentsAPI = function(req, res) {
             'name': adksList[0].division_name,
             'departments': adksList
           }
-
+          
           var result = [adk, adks];
           resolve(result);
         });
@@ -278,8 +278,6 @@ var departmentsAPI = function(req, res) {
       var adk_departments = divisions[0].departments;
       var adks_departments = divisions[1].departments;
       var positions = values[1];
-
-      console.log(divisions);
 
       res.render('../views/employee/employee_add.ejs', {
           'divisions': divisions,

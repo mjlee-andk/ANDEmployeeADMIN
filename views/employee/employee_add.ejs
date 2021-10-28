@@ -91,6 +91,25 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">최종학력</label>
+                                    <select id="employee_final_education_select" class="form-control" name="employee_final_education">
+                                        
+                                        <option value="<%= positions[i].id %>">고졸</option>
+                                        <option value="<%= positions[i].id %>">대졸(전문대)</option>
+                                        <option value="<%= positions[i].id %>">대졸(4년제)</option>
+                                        <option value="<%= positions[i].id %>">석사졸</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">학교</label>
+                                    <input type="text" class="form-control" name="employee_school_info" placeholder="서울대학교">
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">프로필 사진</label>
