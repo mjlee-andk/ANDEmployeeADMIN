@@ -7,7 +7,7 @@ const _ = require('underscore');
 const multer = require('multer');
 const moment = require('moment');
 
-const IMAGE_SERVER_ADDRESS = 'http://121.126.225.132';
+const IMAGE_SERVER_ADDRESS = 'http://admin.andk.co.kr';
 const config = require('../config/configure');
 
 const connection = config.db;
@@ -34,7 +34,6 @@ var upload = multer({ storage: storage})
 */
 router.get('/', function(req, res, next) {
   console.log('직원 관리 페이지');
-  console.log(req.session.adminsession);
   if (req.session.adminsession == config.sessionSecret) {
     employeesAPI(req, res);  
   }
@@ -67,7 +66,6 @@ router.get('/add', function(req, res, next) {
 */
 router.post('/add', upload.single('employee_profile'), function(req, res, next) {
   console.log('직원 등록하기');
-  console.log(req.body);
   employeeAddAPI(req, res);
 });
 
@@ -86,7 +84,6 @@ router.get('/edit', function(req, res, next) {
 */
 router.post('/edit', upload.single('employee_profile'), function(req, res, next) {
   console.log('직원 정보 수정하기');
-  console.log(req.body);
   employeeEditAPI(req, res);
 });
 
@@ -122,8 +119,8 @@ var employeeAPI = function(req, res) {
 
   // 직원 정보 가져오기
   const promise1 = new Promise(function(resolve, reject){ 
-    console.log(employee_id)
       var query = 'SELECT e.id, e.name, u.account AS email, u.is_push, e.gender, e.profile_img, e.extension_number, e.phone, e.birth, e.join_date, e.leave_date, e.school_name, e.final_education, e.annual_incomes, dv.id AS division_id, dv.name AS division_name, dp.id AS department_id, dp.name AS department_name, p.id AS position_id, p.name AS position_name FROM employees AS e LEFT JOIN divisions AS dv ON e.division_id = dv.id LEFT JOIN departments AS dp ON e.department_id = dp.id LEFT JOIN positions AS p ON e.position_id = p.id LEFT JOIN users AS u ON u.employee_id = e.id WHERE e.id = ?'
+
       connection.query(query, [employee_id], (error, rows, fields) => {
             var resultCode = 404;
             var message = "에러가 발생했습니다.";
@@ -132,7 +129,6 @@ var employeeAPI = function(req, res) {
               reject();
               throw error;
             }
-            // console.log(rows[0]);
 
             var birth_origin = rows[0].birth;
             rows[0].birth = moment(birth_origin).format('YYYY-MM-DD');
@@ -375,8 +371,6 @@ var employeeAddAPI = function(req, res){
 var employeeEditAPI = function(req, res){
   var body = req.body;
   var file = req.file;
-
-  console.log(body.employee_leave);
 
   var employee_post = {
     name : body.employee_name,
